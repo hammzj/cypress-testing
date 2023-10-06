@@ -4,12 +4,16 @@
   "license": "MIT",
   "scripts": {
     "cypress:run": "cypress run",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:cucumber:run": "cypress run --config-file ./cypress.cucumber.config.js",
+    "cypress:cucumber:open": "cypress open --config-file ./cypress.cucumber.config.js"
   },
   "engines": {
     "node": ">=18.0.0 <19"
   },
   "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^18.0.6",
+    "@cypress/browserify-preprocessor": "^3.0.2",
     "cypress": "12.12.0"
   }
 }
