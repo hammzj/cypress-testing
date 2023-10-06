@@ -1,0 +1,28 @@
+#Workspace settings
+.idea
+.idea/*
+.vscode
+.DS_Store
+.history
+gh-pages
+gh-pages.pub
+
+#Ignored files
+.env*
+!.env.enc.*
+.npmrc
+
+#Generated Dirs
+node_modules
+build/
+backups
+out/
+
+#Project Dirs
+jsdoc
+
+
+#Temp files
+[._]*.sw[a-p]
+[._]sw[a-p]
+*.tmp
