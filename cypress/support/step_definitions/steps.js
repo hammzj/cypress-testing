@@ -1,26 +1,36 @@
 const {Given, When, Then} = require("@badeball/cypress-cucumber-preprocessor");
 
-Given('the base URL is visited',
-    function () {
-        cy.visit(Cypress.config().baseUrl);
-    });
+Given("the base URL is visited", function () {
+    cy.visit(Cypress.config().baseUrl);
+});
 
-When('the page is viewed', function () {
+When("the page is viewed", function () {
     cy.wait(100);
 });
 
-Then('a long list of items is validated', function () {
-    const items = [
-        {id: `dropdownProduct`, dataCy: 'dropdown-product', text: 'Product'},
-        {id: `dropdownDocs`, dataCy: 'dropdown-docs', text: 'Docs'},
-        {id: `dropdownCommunity`, dataCy: 'dropdown-community', text: 'Community'},
-        {id: `dropdownCompany`, dataCy: 'dropdown-company', text: 'Company'},
-        {id: `dropdownPricing`, dataCy: 'dropdown-pricing', text: 'Pricing'},
-    ];
+const items = [
+    {text: "Product", href: "/app"},
+    {text: "Docs", href: "https://on.cypress.io/"},
+    {text: "Community", href: "/blog"},
+    {text: "Company", href: "/blog/category/Company"},
+    {text: "Pricing", href: "/pricing"},
+];
+const createLongListOfItems = () => {
+    let i = 0;
+    const longList = [];
+    do {
+        longList.push(items);
+        i++;
+    } while (i < 80);
+    return longList.flat();
+};
 
-    items.forEach(i => {
-        const element = cy.get(`a[id="${i.id}"]`);
-        element.its('data-cy').should('eq', i.dataCy);
-        element.should('contain.text', i.text);
+Then("a long list of items is validated", function () {
+    const longListOfItems = createLongListOfItems();
+    cy.log("longListOfItems.length", longListOfItems.length);
+    longListOfItems.forEach(i => {
+        const element = cy.contains("a", i.text);
+        element.should("contain.text", i.text);
+        element.should("have.attr", "href", i.href);
     });
 });
