@@ -21,7 +21,7 @@ const createLongListOfItems = () => {
     do {
         longList.push(items);
         i++;
-    } while (i < 80);
+    } while (i < 70);
     return longList.flat();
 };
 
@@ -32,5 +32,10 @@ Then("a long list of items is validated", function () {
         const element = cy.contains("a", i.text);
         element.should("contain.text", i.text);
         element.should("have.attr", "href", i.href);
+        //cy.wait(100); //Seems to help avoid testrunner freezing
     });
+});
+
+Then("the test waits for {int} seconds", function (ms) {
+    cy.wait(1000 * ms);
 });

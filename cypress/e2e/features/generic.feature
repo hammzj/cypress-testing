@@ -4,3 +4,4 @@ Feature: Generic Example
 	Given the base URL is visited
 	When the page is viewed
 	Then a long list of items is validated
+
