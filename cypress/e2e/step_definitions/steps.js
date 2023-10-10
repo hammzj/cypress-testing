@@ -1,5 +1,15 @@
 const {Given, When, Then} = require("@badeball/cypress-cucumber-preprocessor");
 
+Given("output config", function () {
+    cy.log('Cypress.config', Cypress.config());
+});
+
+Given("output config for {string}", function (property) {
+    cy.log('Cypress.config.' + property, Cypress.config()[property]);
+});
+
+
+
 Given("the base URL is visited", function () {
     cy.visit(Cypress.config().baseUrl);
 });
@@ -21,7 +31,7 @@ const createLongListOfItems = () => {
     do {
         longList.push(items);
         i++;
-    } while (i < 70);
+    } while (i < 10);
     return longList.flat();
 };
 

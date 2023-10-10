@@ -17,6 +17,7 @@ module.exports = defineConfig({
         specPattern: `cypress/e2e/features/**/*.feature`,
         baseUrl: `https://www.cypress.io/`,
         defaultCommandTimeout: 30000,
+        taskTimeout: 30000,
         numTestsKeptInMemory: 25,
         chromeWebSecurity: false,
         testIsolation: true,
