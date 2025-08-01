@@ -1,4 +1,4 @@
-name: Deploy code coverage report to GitHub Pages
+name: Parent workflow
 
 on:
  push:

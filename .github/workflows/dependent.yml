@@ -1,8 +1,8 @@
-name: Deploy code coverage report to GitHub Pages
+name: Dependent workflow
 
 on:
   workflow_run:
-    workflows: [ Parent ]
+    workflows: [ Parent workflow ]
     types: [ completed ]
 
 
