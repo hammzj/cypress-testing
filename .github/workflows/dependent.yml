@@ -4,7 +4,7 @@ on:
   workflow_run:
     workflows: [ Parent workflow ]
     types: [ completed ]
-
+    branches: [ main ]
 
 jobs:
   dependent:
