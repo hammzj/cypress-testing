@@ -1,0 +1,14 @@
+name: Deploy code coverage report to GitHub Pages
+
+on:
+ push:
+   branches:
+     - main
+     - test-*
+
+jobs:
+  dependent:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Parent
+      - run: echo ${{ github.event.workflow_run.id }}

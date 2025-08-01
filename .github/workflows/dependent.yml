@@ -1,0 +1,14 @@
+name: Deploy code coverage report to GitHub Pages
+
+on:
+  workflow_run:
+    workflows: [ Parent ]
+    types: [ completed ]
+
+
+jobs:
+  dependent:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Child
+      - run: echo
