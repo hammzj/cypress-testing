@@ -7,6 +7,7 @@ on:
        description: A name to greet
        type: string
        required: true
+       default: ''
 
 jobs:
   parent:
