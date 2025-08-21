@@ -1,0 +1,16 @@
+name: Parent workflow
+
+on:
+ workflow_dispatch:
+   inputs:
+     name:
+       description: A name to greet
+       type: string
+       required: true
+
+jobs:
+  parent:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Hello "$(${{inputs.name}})"
+
