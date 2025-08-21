@@ -1,4 +1,4 @@
-name: Parent workflow
+name: Manual workflow
 
 on:
  workflow_dispatch:
