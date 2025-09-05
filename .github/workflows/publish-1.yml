@@ -1,0 +1,32 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-output:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep for 10 seconds
+        run: sleep 10s
+        shell: bash
+
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir ./out
+          touch ./out/publish.txt
+          echo Publish ${{ github.run_id }}/${{github.run_number}}/${{github.run_attempt}} >> publish.txt
+
+      - name: Upload output
+        uses: actions/upload-artifact@v4
+        with:
+          name: out
+          path: ./out
+
+      - name: Cache
+        uses: actions/cache/save@v4
+        with:
+          path: ./out
+          key: publish-${{ github.base_ref }}-${{ github.run_id }}-${{github.run_number}}-${{ github.run_attempt }}
