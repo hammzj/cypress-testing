@@ -36,6 +36,7 @@ jobs:
           key: test-${{ github.base_ref }}-${{ github.run_id }}-${{github.run_number}}-${{ github.run_attempt }}
           restore-keys: |
             test-${{ github.base_ref }}-
+            test
 
       - name: Restore Publish
         id: cache-restore-publish
