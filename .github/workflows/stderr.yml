@@ -1,0 +1,21 @@
+name: Error annotations
+
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+
+jobs:
+  annotate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || '' }}
+
+      - id: message
+        run: errors=$(./stderr.sh 2>&1)
+
+      - name: Add error annotations
+        run: echo "::error title=YOUR-TITLE::${{ steps.message.outputs.errors }}"
