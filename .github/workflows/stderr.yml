@@ -23,6 +23,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - run: echo ${{ steps.message.outcome }}
+        if: always()
 
       - name: Add error annotations
         if: ${{ always() && steps.message.outcome == 'failure' }}
