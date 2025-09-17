@@ -16,11 +16,11 @@ jobs:
       - id: message
         run: |
           {
-            echo "errors<<EOF"
+            echo "errors<<$EOF"
             bash ./stderr.sh 2>&1
-            echo "EOF"
+            echo "$EOF"
           } >> "$GITHUB_OUTPUT"
 
       - name: Add error annotations
-        if: ${{ steps.message.conclusion == 'failure' }}
+        if: ${{ always() && steps.message.outcome == 'failure' }}
         run: echo "::error title=ERROR MESSAGE::${{ steps.message.outputs.errors }}"
