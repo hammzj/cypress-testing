@@ -20,7 +20,8 @@ jobs:
             echo "errors<<$delimiter"
             echo $(bash ./stderr.sh 2>&1)
             echo "$delimiter"
-          } >> "$GITHUB_OUTPUT"
+         } >> "$GITHUB_OUTPUT"
+          bash ./stderr.sh 
 
       - run: echo ${{ steps.message.outcome }}
         if: always()
