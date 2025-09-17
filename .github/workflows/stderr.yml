@@ -14,7 +14,9 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || '' }}
 
       - id: message
-        run: errors=$(bash ./stderr.sh 2>&1)
+        run: |
+          errors=$(bash ./stderr.sh 2>&1)
+          echo here
 
       - name: Add error annotations
         run: echo "::error title=YOUR-TITLE::${{ steps.message.outputs.errors }}"
