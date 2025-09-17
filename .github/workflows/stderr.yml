@@ -21,6 +21,8 @@ jobs:
             echo "$EOF"
           } >> "$GITHUB_OUTPUT"
 
+      - run: echo ${{ steps.message.outcome }}
+
       - name: Add error annotations
         if: ${{ always() && steps.message.outcome == 'failure' }}
         run: echo "::error title=ERROR MESSAGE::${{ steps.message.outputs.errors }}"
