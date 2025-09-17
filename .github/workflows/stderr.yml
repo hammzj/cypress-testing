@@ -15,11 +15,10 @@ jobs:
 
       - id: message
         run: |
-          delimiter=$(openssl rand -hex 8)
           {
-            echo 'errors<<$delimiter'
+            echo "errors<<EOF"
             bash ./stderr.sh 2>&1
-            echo EOF
+            echo "EOF"
           } >> "$GITHUB_OUTPUT"
 #        run: |
 #
