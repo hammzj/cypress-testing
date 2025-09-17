@@ -19,4 +19,5 @@ jobs:
           echo here
 
       - name: Add error annotations
+        if: ${{ failure() }}
         run: echo "::error title=YOUR-TITLE::${{ steps.message.outputs.errors }}"
