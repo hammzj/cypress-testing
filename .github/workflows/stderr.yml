@@ -15,8 +15,7 @@ jobs:
 
       - id: message
         run: |
-          errors=$(bash ./stderr.sh 2>&1)
-          echo here
+          echo "errors=$(bash ./stderr.sh 2>&1)" >> "$GITHUB_OUTPUT"
 
       - name: Add error annotations
         if: ${{ failure() }}
