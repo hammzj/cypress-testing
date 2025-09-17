@@ -15,11 +15,14 @@ jobs:
 
       - id: message
         run: |
-          {
-            echo "errors<<EOF"
-            bash ./stderr.sh 2>&1
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
+          echo "errors << EOF" >> "$GITHUB_OUTPUT"
+          echo "hello" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+#          {
+#            echo "errors<<EOF"
+#            bash ./stderr.sh 2>&1
+#            echo "EOF"
+#          } >> "$GITHUB_OUTPUT"
 #        run: |
 #
 #          echo "errors=$(bash ./stderr.sh 2>&1)" >> "$GITHUB_OUTPUT"
