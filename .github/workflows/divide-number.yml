@@ -16,7 +16,7 @@ jobs:
       runner-count: ${{ steps.get-count.output.runner-count }}
     steps:
       - run: |
-          count=$(scale=0; ${{ env.total }} / ${{ env.divide }}" | bc)
+          count=$(echo "scale=0; ${{ env.total }} / ${{ env.divide }}" | bc)
           echo "runner-count=$count" >> "$GITHUB_OUTPUT"
         id: get-count
       - run: echo ${{ steps.get-count.outputs.runner-count }}
