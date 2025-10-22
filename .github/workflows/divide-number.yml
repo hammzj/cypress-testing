@@ -1,5 +1,4 @@
-name: Deploy code coverage report to GitHub Pages
-
+name: Divide Number
 on:
  push:
    branches:
