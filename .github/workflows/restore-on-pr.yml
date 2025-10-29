@@ -22,8 +22,10 @@ jobs:
             word-${{github.head_ref || github.ref_name }}-
             word-${{github.head_ref || github.ref_name }}
             
-            
+
             word-restore-3-18912934597-1
-# TESTING EXACT MATCH OF KEY ABOVE
+            word-restore-3-18913473906-1
       - run: ls -al -R
       - run: cat ./word.txt
+# TESTING EXACT MATCH OF CACHE KEY FOR PR MERGE REF  (ref/pulls/1136):  word-restore-3-18912934597-1
+# TESTING EXACT MATCH OF CACHE KEY FOR HEAD BRANCH NAME  (restore-3): word-restore-3-18913473906-1
