@@ -18,7 +18,7 @@ jobs:
         with:
           fail-on-cache-miss: true
           path: word.txt
-          key: word-${{ github.head_ref }}
+          key: word-${{github.head_ref || github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             word-${{github.head_ref || github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
             word-${{github.head_ref || github.ref_name }}-${{ github.run_id }}-
