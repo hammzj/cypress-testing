@@ -1,0 +1,52 @@
+name: Saving cache key to branch to see if it can be reused
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [closed]
+
+
+jobs:
+  restore-head:
+    # this job will only run if the PR has been merged
+    if: github.event.pull_request.merged == true
+    name: Restore word from cache
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Restore cache of the word of the HEAD branch
+        id: word-head-cache
+        uses: actions/cache/restore@v4
+        with:
+          fail-on-cache-miss: true
+          path: word.txt
+          key: word-${{ github.head_ref }}
+          restore-keys: |
+            word-${{github.head_ref || github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+            word-${{github.head_ref || github.ref_name }}-${{ github.run_id }}-
+            word-${{github.head_ref || github.ref_name }}-
+
+      - run: ls -al -R
+      - run: cat ./word.txt
+
+  restore-base:
+    # this job will only run if the PR has been merged
+    if: github.event.pull_request.merged == true
+    name: Restore word from cache
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Restore cache of the word of the BASE branch
+        id: word-head-cache
+        uses: actions/cache/restore@v4
+        with:
+          fail-on-cache-miss: true
+          path: word.txt
+          key: word-${{ github.head_ref }}
+          restore-keys: |
+            word-${{github.base_ref }}-${{ github.run_id }}-${{ github.run_attempt }}
+            word-${{github.base_ref }}-${{ github.run_id }}-
+            word-${{github.base_ref }}-
+
+      - run: ls -al -R
+      - run: cat ./word.txt
