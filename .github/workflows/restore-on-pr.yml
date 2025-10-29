@@ -16,7 +16,7 @@ jobs:
         id: word-head-cache
         uses: actions/cache/restore@v4
         with:
-          fail-on-cache-miss: true
+          #fail-on-cache-miss: true
           path: word.txt
           key: word-${{github.head_ref || github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
