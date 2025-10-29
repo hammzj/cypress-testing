@@ -10,12 +10,10 @@ jobs:
     name: Restore word from cache on PR open (HEAD BRANCH)
     runs-on: ubuntu-latest
     steps:
-
       - name: Restore cache of the word of the HEAD branch
         id: word-head-cache
         uses: actions/cache/restore@v4
         with:
-          #fail-on-cache-miss: true
           path: word.txt
           key: word-${{github.head_ref || github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
@@ -24,9 +22,8 @@ jobs:
             word-${{github.head_ref || github.ref_name }}-
             word-${{github.head_ref || github.ref_name }}
             
-
-          # TESTING EXACT MATCH
+            
             word-restore-3-18912934597-1
-
+# TESTING EXACT MATCH OF KEY ABOVE
       - run: ls -al -R
       - run: cat ./word.txt
