@@ -11,7 +11,7 @@ jobs:
     steps:
       - id: get-word
         run: |
-          word="${{ github.ref_name }}-${{ github.workflow }}-${{ github.run_id }}"
+          word="${{ github.ref_name }}-${{ github.run_id }}"
           echo "$word" >> word.txt
 
       - name: Save cache of the word to the current branch
