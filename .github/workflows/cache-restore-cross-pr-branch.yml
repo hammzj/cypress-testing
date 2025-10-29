@@ -1,4 +1,4 @@
-name: Saving cache key to branch to see if it can be reused
+name: Restore words
 
 on:
   workflow_dispatch:
