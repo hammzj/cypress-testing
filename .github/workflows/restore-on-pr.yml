@@ -1,4 +1,4 @@
-name: Restore words
+name: Restore words on PR
 
 on:
   workflow_dispatch:

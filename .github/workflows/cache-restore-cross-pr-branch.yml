@@ -1,4 +1,4 @@
-name: Restore words
+name: Restore words when PR is merged and closed
 
 on:
   workflow_dispatch:
