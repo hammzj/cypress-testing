@@ -2,7 +2,8 @@ name: Saving cache key to branch to see if it can be reused
 
 on:
   workflow_dispatch:
-  pull_request:
+  #pull_request:
+  push:
 
 jobs:
   save:

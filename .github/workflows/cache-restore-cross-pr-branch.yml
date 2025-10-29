@@ -1,4 +1,4 @@
-name: Restore words
+name: Restore words when PR is merged and closed
 
 on:
   workflow_dispatch:
@@ -20,10 +20,11 @@ jobs:
         with:
           fail-on-cache-miss: true
           path: word.txt
-          key: word-${{ github.head_ref }}
+          key: word-${{github.head_ref || github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             word-${{github.head_ref || github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
             word-${{github.head_ref || github.ref_name }}-${{ github.run_id }}-
+            word-${{github.head_ref || github.ref_name }}-
             word-${{github.head_ref || github.ref_name }}
 
       - run: ls -al -R
@@ -42,10 +43,11 @@ jobs:
         with:
           fail-on-cache-miss: true
           path: word.txt
-          key: word-${{ github.head_ref }}
+          key: word-${{github.base_ref }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             word-${{github.base_ref }}-${{ github.run_id }}-${{ github.run_attempt }}
             word-${{github.base_ref }}-${{ github.run_id }}-
+            word-${{github.base_ref }}-
             word-${{github.base_ref }}
 
       - run: ls -al -R
