@@ -1,6 +1,6 @@
 const {defineConfig} = require("cypress");
 
-//TESTING PR MERGE
+//TESTING PR MERGE 2
 module.exports = defineConfig({
     e2e: {
         async setupNodeEvents(on, config) {
