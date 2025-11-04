@@ -1,0 +1,31 @@
+name: Restore words on PR
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  restore-head:
+    # Can cache be accessed on PR updates?
+    name: Restore word from cache on PR open (HEAD BRANCH)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore cache of the word of the HEAD branch
+        id: word-head-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: word.txt
+          key: word-${{github.head_ref || github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            word-${{github.head_ref || github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+            word-${{github.head_ref || github.ref_name }}-${{ github.run_id }}-
+            word-${{github.head_ref || github.ref_name }}-
+            word-${{github.head_ref || github.ref_name }}
+            
+
+            word-restore-3-18912934597-1
+            word-restore-3-18913473906-1
+      - run: ls -al -R
+      - run: cat ./word.txt
+# TESTING EXACT MATCH OF CACHE KEY FOR PR MERGE REF  (ref/pulls/1136):  word-restore-3-18912934597-1
+# TESTING EXACT MATCH OF CACHE KEY FOR HEAD BRANCH NAME  (restore-3): word-restore-3-18913473906-1
