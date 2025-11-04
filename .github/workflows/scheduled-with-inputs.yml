@@ -3,7 +3,7 @@ name: Scheduled with inputs
 #TODO: temporary
 on:
   schedule:
-    - cron: '25,30,35,40 * * * *'
+    - cron: '* * * * *'
   workflow_dispatch:
     inputs:
       number:
