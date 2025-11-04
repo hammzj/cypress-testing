@@ -1,8 +1,8 @@
 name: Scheduled with inputs
 
+  #TODO: temporary
 on:
   schedule:
-    #TODO: temporary
     - cron: '0,5 * * * *'
   workflow_dispatch:
     inputs:
@@ -16,4 +16,4 @@ jobs:
     name: Save word as cache
     runs-on: ubuntu-latest
     steps:
-      run: echo "${{ fromJson(inputs.number) || 2 }}"
+      - run: echo "${{ fromJson(inputs.number) || 2 }}"
