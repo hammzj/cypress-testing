@@ -1,0 +1,15 @@
+name: Scheduled with inputs 2 (no default)
+
+#TODO: temporary
+on:
+  workflow_dispatch:
+    inputs:
+      number:
+        type: number
+        required: false
+
+jobs:
+  echo:
+    uses: ./.github/workflows/echo.yml
+    with:
+      number: ${{ fromJson(inputs.number || 99) }}
