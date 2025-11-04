@@ -1,0 +1,19 @@
+name: Saving cache key to branch to see if it can be reused
+
+on:
+  scheduled:
+    #TODO: temporary
+    - cron: '0,5 * * * *'
+  workflow_dispatch:
+    inputs:
+      number:
+        type: number
+        default: 1
+        required: false
+
+jobs:
+  echo:
+    name: Save word as cache
+    runs-on: ubuntu-latest
+    steps:
+      run: echo "${{ fromJson(inputs.number) || 2 }}"
