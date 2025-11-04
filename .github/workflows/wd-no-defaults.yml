@@ -1,4 +1,4 @@
-name: Scheduled with inputs 2 (no default)
+name: Workflow dispatch with no default
 
 #TODO: temporary
 on:
