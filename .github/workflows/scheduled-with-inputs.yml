@@ -3,7 +3,7 @@ name: Scheduled with inputs
   #TODO: temporary
 on:
   schedule:
-    - cron: '0/5 * * * *'
+    - cron: '25,30,35,40 * * * *'
   workflow_dispatch:
     inputs:
       number:
@@ -15,4 +15,6 @@ jobs:
   echo:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ fromJson(inputs.number) || 2 }}"
+      - uses: ./.github/workflows/echo.yml
+        with:
+          number: ${{ inputs.number || 99 }}

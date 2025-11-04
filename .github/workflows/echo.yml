@@ -1,0 +1,17 @@
+name: Scheduled with inputs
+
+#TODO: temporary
+on:
+  workflow_call:
+    inputs:
+      number:
+        type: number
+        default: 1
+        required: false
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo a number
+        run: echo "${{ fromJson(inputs.number) }}"
