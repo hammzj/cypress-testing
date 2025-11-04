@@ -1,6 +1,4 @@
-name: Scheduled with inputs
-
-#TODO: temporary
+name: echo
 on:
   workflow_call:
     inputs:
