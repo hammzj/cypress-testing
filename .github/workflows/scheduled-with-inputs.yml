@@ -13,7 +13,6 @@ on:
 
 jobs:
   echo:
-    name: Save word as cache
     runs-on: ubuntu-latest
     steps:
       - run: echo "${{ fromJson(inputs.number) || 2 }}"
