@@ -15,4 +15,4 @@ jobs:
   echo:
     uses: ./.github/workflows/echo.yml
     with:
-      number: ${{ inputs.number || 99 }}
+      number: ${{ fromJson(inputs.number || 99) }}
