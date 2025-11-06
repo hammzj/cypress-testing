@@ -4,15 +4,10 @@ on:
   workflow_dispatch:
 jobs:
   restore-head:
-    # Can cache be accessed on PR updates?
     name: Restore file from first run attempt of a workflow
     runs-on: ubuntu-latest
     steps:
-      - name: Create word if not existing
-        run: |
-          run_attempt="${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
-          echo $run_attempt >> word.txt
-      - name: Restore cache of the word of the HEAD branch
+      - name: Restore cache of the word from previous workflow runs
         id: id-head-cache
         uses: actions/cache/restore@v4
         with:
@@ -22,11 +17,24 @@ jobs:
             word-${{ github.ref_name }}-${{ github.run_id }}-1
             word-${{ github.ref_name }}-
             word-main-
+
       - name: Cache map for all future run attempts map on first run attempt
         if: ${{ github.run_attempt == '1' }}
         uses: actions/cache/save@v4
         with:
           key: word-${{ github.ref_name }}-${{ github.run_id }}-1
           path: word.txt
-      - run: ls -al -R
+
+      - name: Create textfile of this run attempt's information
+        run: |
+          run_attempt="${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
+          echo $run_attempt >> word.txt  
+
+      - name: Current attempts
       - run: cat ./word.txt
+
+      - name: Save cache again
+        uses: actions/cache/save@v4
+        with:
+          path: word.txt
+          key: word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
