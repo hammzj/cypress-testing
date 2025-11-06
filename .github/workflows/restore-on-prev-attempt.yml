@@ -31,7 +31,7 @@ jobs:
           echo $run_attempt >> word.txt  
 
       - name: Current attempts
-      - run: cat ./word.txt
+        run: cat ./word.txt
 
       - name: Save cache again
         uses: actions/cache/save@v4
