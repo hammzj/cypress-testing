@@ -24,11 +24,6 @@ jobs:
           key: word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
           path: word.txt
 
-      - name: Create textfile of this run attempt's information
-        run: |
-          run_attempt="${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
-          echo $run_attempt >> word.txt  
-
       - name: Current attempts
         run: cat ./word.txt
 
@@ -50,7 +45,11 @@ jobs:
           restore-keys: |
             word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
             word-main-
-      - run: |
+
+      - name: Create textfile of this run attempt's information
+        run: |
+          run_attempt="${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
           echo MERGED >> word.txt
+          echo $run_attempt >> word.txt
       - name: Read all attempts
         run: cat ./word.txt
