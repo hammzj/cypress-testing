@@ -59,3 +59,8 @@ jobs:
           echo $run_attempt >> word.txt
       - name: Read all attempts
         run: cat ./word.txt
+      - name: Cache map for to branch
+        uses: actions/cache/save@v4
+        with:
+          key: word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: word.txt
