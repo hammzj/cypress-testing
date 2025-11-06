@@ -3,7 +3,7 @@ name: Restore cache from first run attempt
 on:
   workflow_dispatch:
 jobs:
-  restore-head:
+  restore:
     name: Restore file from first run attempt of a workflow
     runs-on: ubuntu-latest
     steps:
@@ -38,24 +38,24 @@ jobs:
         with:
           path: word.txt
           key: word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
-    merge:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Get cached from main
-          uses: actions/cache/restore@v4
-          with:
-            fail-on-cache-miss: false
-            path: .cypress_load_balancer/spec-map.json
-            key: word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
-            # Restore keys in order:
-            ## 1. Default provided key from inputs
-            ## 2. Same key from current branch and previous run
-            ## 3. Same key from current branch
-            ## 4. Key from default branch of "master" (GitHub Actions does not provide a way to get the default_branch name easily)
-            restore-keys: |
-              word-${{ github.ref_name }}-${{ github.run_attempt }}
-              word-main-
-        - run: |
-            echo MERGED >> word.txt
-        - name: Read all attempts
-          run: cat ./word.txt
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get cached from main
+        uses: actions/cache/restore@v4
+        with:
+          fail-on-cache-miss: false
+          path: .cypress_load_balancer/spec-map.json
+          key: word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          # Restore keys in order:
+          ## 1. Default provided key from inputs
+          ## 2. Same key from current branch and previous run
+          ## 3. Same key from current branch
+          ## 4. Key from default branch of "master" (GitHub Actions does not provide a way to get the default_branch name easily)
+          restore-keys: |
+            word-${{ github.ref_name }}-${{ github.run_attempt }}
+            word-main-
+      - run: |
+          echo MERGED >> word.txt
+      - name: Read all attempts
+        run: cat ./word.txt
