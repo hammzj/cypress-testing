@@ -49,8 +49,6 @@ jobs:
           ## 3. Same key from current branch
           ## 4. Key from default branch of "master" (GitHub Actions does not provide a way to get the default_branch name easily)
           restore-keys: |
-          #word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
-          #word-${{ github.ref_name }}-${{ github.run_id }}-
             word-main-
 
       - name: Create textfile of this run attempt's information
