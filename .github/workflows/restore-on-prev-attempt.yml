@@ -17,6 +17,12 @@ jobs:
             word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
             word-main-
 
+      - if: ${{ hashFiles('word.txt') == '' }}
+        run: |
+          run_attempt="${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
+          echo ORIGINAL: >> word.txt
+          echo $run_attempt >> word.txt
+
       - name: Cache map for all future run attempts map on first run attempt
         if: ${{ github.run_attempt == '1' }}
         uses: actions/cache/save@v4
@@ -49,7 +55,7 @@ jobs:
       - name: Create textfile of this run attempt's information
         run: |
           run_attempt="${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
-          echo MERGED >> word.txt
+          echo MERGED: >> word.txt
           echo $run_attempt >> word.txt
       - name: Read all attempts
         run: cat ./word.txt
