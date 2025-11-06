@@ -32,11 +32,6 @@ jobs:
       - name: Current attempts
         run: cat ./word.txt
 
-      - name: Save cache again
-        uses: actions/cache/save@v4
-        with:
-          path: word.txt
-          key: word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
   merge:
     runs-on: ubuntu-latest
     needs: restore
