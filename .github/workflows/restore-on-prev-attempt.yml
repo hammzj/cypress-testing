@@ -39,6 +39,7 @@ jobs:
           key: word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
   merge:
     runs-on: ubuntu-latest
+    needs: restore
     steps:
       - name: Get cached from main
         uses: actions/cache/restore@v4
