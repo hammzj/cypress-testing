@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Create word if not existing
         run: |
-          run_attempt=${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }} }}
+          run_attempt="${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
           echo $run_attempt >> word.txt
       - name: Restore cache of the word of the HEAD branch
         id: id-head-cache
