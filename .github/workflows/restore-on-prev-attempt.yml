@@ -15,7 +15,6 @@ jobs:
           key: word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
-            word-${{ github.ref_name }}-
             word-main-
 
       - name: Cache map for all future run attempts map on first run attempt
@@ -53,7 +52,7 @@ jobs:
           ## 3. Same key from current branch
           ## 4. Key from default branch of "master" (GitHub Actions does not provide a way to get the default_branch name easily)
           restore-keys: |
-            word-${{ github.ref_name }}-${{ github.run_attempt }}
+            word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
             word-main-
       - run: |
           echo MERGED >> word.txt
