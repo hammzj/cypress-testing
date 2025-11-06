@@ -14,7 +14,7 @@ jobs:
           path: word.txt
           key: word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
-            word-${{ github.ref_name }}-${{ github.run_id }}-1
+            word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
             word-${{ github.ref_name }}-
             word-main-
 
@@ -22,7 +22,7 @@ jobs:
         if: ${{ github.run_attempt == '1' }}
         uses: actions/cache/save@v4
         with:
-          key: word-${{ github.ref_name }}-${{ github.run_id }}-1
+          key: word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
           path: word.txt
 
       - name: Create textfile of this run attempt's information
