@@ -18,7 +18,7 @@ jobs:
             word-main-
 
       - name: Add OG run attempt to file if it doesnt exist
-        if: ${{ hashFiles('word.txt') == '' }}
+        if: ${{ steps.restore-word.outputs.cache-hit == 'false' }}
         run: |
           run_attempt="${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
           echo ORIGINAL: >> word.txt
