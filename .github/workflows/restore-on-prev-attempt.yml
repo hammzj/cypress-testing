@@ -2,6 +2,9 @@ name: Restore cache from first run attempt
 
 on:
   workflow_dispatch:
+
+env:
+  original-word-cache-key: word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
 jobs:
   save-og:
     name: Save original for all future run attempts
@@ -12,7 +15,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: word.txt
-          key: word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
+          key: ${{ env.original-word-cache-key }}
           restore-keys: |
             word-${{ github.ref_name }}-
             word-main-
@@ -28,7 +31,7 @@ jobs:
         if: ${{ !steps.restore-word.outputs.cache-hit != 'true' }}
         uses: actions/cache/save@v4
         with:
-          key: word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
+          key: ${{ env.original-word-cache-key }}
           path: word.txt
 
   read:
@@ -41,7 +44,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: word.txt
-          key: word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
+          key: ${{ env.original-word-cache-key }}
 
       - name: Current attempts
         run: cat ./word.txt
