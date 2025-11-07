@@ -5,6 +5,7 @@ on:
 
 env:
   original-word-cache-key: word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
+  run_number: ${{ github.run_number }}
 jobs:
   save-og:
     name: Save original for all future run attempts
@@ -23,7 +24,7 @@ jobs:
       - name: Add OG run attempt to file if it doesnt exist
         if: ${{ steps.restore-word.outputs.cache-hit != 'true' }}
         run: |
-          run_attempt="(${{ github.run_number }}) ${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
+          run_attempt="(${{ env.run_number }}) ${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
           echo ORIGINAL: >> word.txt
           echo $run_attempt >> word.txt
 
@@ -69,7 +70,7 @@ jobs:
 
       - name: Create textfile of this run attempt's information
         run: |
-          run_attempt="(${{ github.run_number }}) ${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
+          run_attempt="(${{ env.run_number }}) ${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
           echo MERGED: >> word.txt
           echo $run_attempt >> word.txt
       - name: Read all attempts
@@ -79,3 +80,9 @@ jobs:
         with:
           key: word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: word.txt
+
+  echo:
+    name: Just testing if i can pass in an env var
+    uses: ./.github/workflows/echo.yml
+    with:
+      number: ${{ env.run_number }}
