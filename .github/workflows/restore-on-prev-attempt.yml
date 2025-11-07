@@ -3,40 +3,53 @@ name: Restore cache from first run attempt
 on:
   workflow_dispatch:
 jobs:
-  restore:
+  save-og:
     name: Restore file from first run attempt of a workflow
     runs-on: ubuntu-latest
     steps:
       - name: Restore cache of the word from previous workflow runs
-        id: id-head-cache
+        id: restore-word
         uses: actions/cache/restore@v4
         with:
           path: word.txt
-          key: word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          key: word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
           restore-keys: |
-            word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
+            word-${{ github.ref_name }}-
             word-main-
 
       - name: Add OG run attempt to file if it doesnt exist
-        if: ${{ hashFiles('word.txt') == '' || github.run_attempt == '1' }}
+        if: ${{ hashFiles('word.txt') == '' }}
         run: |
           run_attempt="${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}"
           echo ORIGINAL: >> word.txt
           echo $run_attempt >> word.txt
 
       - name: Cache map for all future run attempts map on first run attempt
-        if: ${{ github.run_attempt == '1' }}
+        if: ${{ !(steps.restore-word.outputs.cache-hit) }}
         uses: actions/cache/save@v4
         with:
           key: word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
           path: word.txt
 
+  read:
+    name: Restore file from first run attempt of a workflow
+    runs-on: ubuntu-latest
+    needs: save-og
+    steps:
+      - name: Word | Restore original cache of run attempt
+        id: restore-original
+        uses: actions/cache/restore@v4
+        with:
+          path: word.txt
+          key: word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
+
       - name: Current attempts
         run: cat ./word.txt
-
   merge:
     runs-on: ubuntu-latest
-    needs: restore
+    needs: read
     steps:
       - name: Get cached from main
         uses: actions/cache/restore@v4
