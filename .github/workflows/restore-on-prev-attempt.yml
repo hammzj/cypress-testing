@@ -85,4 +85,6 @@ jobs:
     name: Just testing if i can pass in an env var
     uses: ./.github/workflows/echo.yml
     with:
-      number: ${{ env.run_number }}
+      # Cannot use env vars on workflow_call
+      #number: ${{ env.run_number }}
+      number: ${{ github.run_number }}
