@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 jobs:
   save-og:
-    name: Restore file from first run attempt of a workflow
+    name: Save original for all future run attempts
     runs-on: ubuntu-latest
     steps:
       - name: Restore cache of the word from previous workflow runs
@@ -25,14 +25,14 @@ jobs:
           echo $run_attempt >> word.txt
 
       - name: Cache map for all future run attempts map on first run attempt
-        if: ${{ !(steps.restore-word.outputs.cache-hit) }}
+        if: ${{ steps.restore-word.outputs.cache-hit == 'false' }}
         uses: actions/cache/save@v4
         with:
           key: word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
           path: word.txt
 
   read:
-    name: Restore file from first run attempt of a workflow
+    name: Read file
     runs-on: ubuntu-latest
     needs: save-og
     steps:
@@ -41,9 +41,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: word.txt
-          key: word-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: |
-            word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
+          key: word-${{ github.ref_name }}-${{ github.run_id }}-ORIGINAL
 
       - name: Current attempts
         run: cat ./word.txt
