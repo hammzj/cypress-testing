@@ -1,14 +1,7 @@
 name: Check branch name
-on:
-  workflow_call:
-    inputs:
-      number:
-        type: number
-        default: 1
-        required: false
 
 jobs:
-  echo:
+  check-branch-name:
     runs-on: ubuntu-latest
     steps:
       - run: echo "${{ github.base_ref }}"
