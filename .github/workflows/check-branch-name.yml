@@ -20,7 +20,7 @@ jobs:
         run: echo "${{ github.ref_name }}, endsWith - ${{endsWith(github.ref_name, 'main')}}"
 
       - name: Run only if for trunk branch
-        if: ${{  is-for-trunk-branch }}
+        if: ${{ env.is-for-trunk-branch }}
         id: run-only
         run: exit 0
 
