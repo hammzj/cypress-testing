@@ -26,10 +26,10 @@ jobs:
 
       - run: echo "foo=foo" >> $GITHUB_OUTPUT
         id: foo
-        if: ${{ env.is-for-trunk-branch }}
+        if: ${{ env.is-for-trunk-branch == 'true' }}
 
       - name: Run only if for trunk branch
-        if: ${{ env.is-for-trunk-branch }}
+        if: ${{ env.is-for-trunk-branch == 'true' }}
         id: run-only
         run: exit 1
 
