@@ -18,11 +18,11 @@ jobs:
 
       - name: ref_name
         run: echo "${{ github.ref_name }}, endsWith - ${{endsWith(github.ref_name, 'main')}}"
-
+      - run: sleep 10
       - name: Run only if for trunk branch
         if: ${{ env.is-for-trunk-branch }}
         id: run-only
-        run: exit 0
+        #run: exit 0
 
   only-main:
     runs-on: ubuntu-latest
