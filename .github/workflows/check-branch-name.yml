@@ -25,7 +25,7 @@ jobs:
       - name: Run only if for trunk branch
         if: ${{ env.is-for-trunk-branch }}
         id: run-only
-        run: exit 0
+        run: exit 1
 
   only-main:
     runs-on: ubuntu-latest
