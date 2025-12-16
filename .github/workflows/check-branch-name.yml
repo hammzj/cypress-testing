@@ -1,4 +1,4 @@
-name: Check branch name for "main"
+name: Check branch name for "main" (different branch)
 on:
   pull_request:
   push:
