@@ -1,0 +1,20 @@
+name: Check branch name
+on:
+  workflow_call:
+    inputs:
+      number:
+        type: number
+        default: 1
+        required: false
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ github.base_ref }}"
+      - run: echo "${{ github.head_ref }}"
+      - run: echo "${{ github.ref_name }}, endsWith - ${{endsWith(github.ref_name, 'main')}}"
+      - name: Is true?
+        run: ${{ github.base_ref == 'master' || github.head_ref == 'master' || endsWith(github.ref_name, 'master') }}
+
+
