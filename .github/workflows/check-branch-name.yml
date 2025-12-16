@@ -14,6 +14,6 @@ jobs:
       - run: echo "${{ github.head_ref }}"
       - run: echo "${{ github.ref_name }}, endsWith - ${{endsWith(github.ref_name, 'main')}}"
       - name: Is true?
-        run: ${{ github.base_ref == 'main' || endsWith(github.ref_name, 'main') }}
+        run: echo "${{ github.base_ref == 'main' || endsWith(github.ref_name, 'main') }}"
 
 
