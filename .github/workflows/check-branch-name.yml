@@ -1,8 +1,8 @@
 name: Check branch name for "main"
 on:
+  pull_request:
   push:
     - main
-  pull_request:
 env:
   is-for-trunk-branch: ${{ endsWith(github.base_ref, 'main') || endsWith(github.ref_name, 'main') }}
 
@@ -13,7 +13,7 @@ jobs:
       - run: echo "${{ github.base_ref }}"
       - run: echo "${{ github.head_ref }}"
       - run: echo "${{ github.ref_name }}, endsWith - ${{endsWith(github.ref_name, 'main')}}"
-      - name: Is true?
-        run: echo "${{ github.base_ref == 'main' || endsWith(github.ref_name, 'main') }}"
+      #- name: Is true?
+      #  run: echo "${{ github.base_ref == 'main' || endsWith(github.ref_name, 'main') }}"
 
 
