@@ -1,4 +1,4 @@
-name: Check branch name
+name: Check branch name for "main"
 on:
   push:
 env:
