@@ -24,10 +24,6 @@ jobs:
         id: run-only
         run: exit 0
 
-      - name: Needs
-        needs: run-only
-        run: echo "complete!!"
-
   only-main:
     runs-on: ubuntu-latest
     needs: check-branch-name
