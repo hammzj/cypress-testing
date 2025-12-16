@@ -2,7 +2,7 @@ name: Check branch name for "main"
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [ main ]
 env:
   is-for-trunk-branch: ${{ endsWith(github.base_ref, 'main') || endsWith(github.ref_name, 'main') }}
 
@@ -10,10 +10,21 @@ jobs:
   check-branch-name:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ github.base_ref }}"
-      - run: echo "${{ github.head_ref }}"
-      - run: echo "${{ github.ref_name }}, endsWith - ${{endsWith(github.ref_name, 'main')}}"
-      - name: Is true?
-        run: echo "${{ github.base_ref == 'main' || endsWith(github.ref_name, 'main') }}"
+      - name: Base_ref
+        run: echo "${{ github.base_ref }}"
 
+      - name: Head_ref
+        run: echo "${{ github.head_ref }}"
+
+      - name: ref_name
+        run: echo "${{ github.ref_name }}, endsWith - ${{endsWith(github.ref_name, 'main')}}"
+
+      - name: Run only if for trunk branch
+        if: ${{  is-for-trunk-branch }}
+        id: run-only
+        run: exit 0
+
+      - name: Needs
+        needs: run-only
+        run: echo "complete!!"
 
