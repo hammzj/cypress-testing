@@ -21,14 +21,17 @@ jobs:
       - run: sleep 10
         shell: bash
 
-      - run: echo "foo=foo" >> $GITHUB_OUTPUT
+      - run: |
+          return_code=1
+          echo "foo=foo" >> $GITHUB_OUTPUT
+          echo "return_code=$return_code" >> $GITHUB_OUTPUT
         id: foo
         if: ${{ env.is-for-trunk-branch == 'true' }}
 
       - name: Run only if for trunk branch
         if: ${{ env.is-for-trunk-branch == 'true' }}
         id: run-only
-        run: exit 0
+        run: exit ${{ steps.foo.outputs.return_code }}
 
   only-main:
     runs-on: ubuntu-latest
