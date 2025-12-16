@@ -28,3 +28,10 @@ jobs:
         needs: run-only
         run: echo "complete!!"
 
+  only-main:
+    runs-on: ubuntu-latest
+    needs: check-branch-name
+    steps:
+      - run: echo ${{ env.is-for-trunk-branch }}
+      - run: echo "complete!!"
+
