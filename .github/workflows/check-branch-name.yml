@@ -2,7 +2,7 @@ name: Check branch name for "main"
 on:
   pull_request:
   push:
-    branches: [ main ]
+    branches: [ main, main-test ]
 env:
   is-for-trunk-branch: ${{ endsWith(github.base_ref, 'main') || endsWith(github.ref_name, 'main') }}
 
