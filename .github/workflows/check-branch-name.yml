@@ -9,7 +9,8 @@ env:
 jobs:
   check-branch-name:
     runs-on: ubuntu-latest
-    if: ${{ env.is-for-trunk-branch }}
+    outputs:
+      foo: ${{ steps.foo.outputs.foo }}
     steps:
       - name: Base_ref
         run: echo "${{ github.base_ref }}"
@@ -23,7 +24,12 @@ jobs:
       - run: sleep 10
         shell: bash
 
+      - run: echo "foo=foo" >> $GITHUB_OUTPUT
+        id: foo
+        if: ${{ env.is-for-trunk-branch }}
+
       - name: Run only if for trunk branch
+        if: ${{ env.is-for-trunk-branch }}
         id: run-only
         run: exit 1
 
@@ -33,5 +39,6 @@ jobs:
     if: (!cancelled())
     steps:
       - run: echo ${{ env.is-for-trunk-branch }}
+      - run: echo ? ${{ needs.check-branch-name.outputs.foo }}
       - run: echo "complete!!"
 
