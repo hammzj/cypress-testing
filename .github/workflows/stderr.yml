@@ -1,0 +1,39 @@
+name: Error annotations
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  annotate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || '' }}
+
+      - id: message
+#        run: |
+#          delimiter="$(openssl rand -hex 8)"
+#          {
+#            echo "errors<<$delimiter"
+#            echo $(bash ./stderr.sh 2>&1)
+#            echo "$delimiter"
+#          } >> "$GITHUB_OUTPUT"
+#          bash ./stderr.sh
+        run: |
+          delimiter="$(openssl rand -hex 8)"
+          {
+            echo "errors<<$delimiter"
+            echo $(bash ./stderr.sh 2>&1)
+            echo "$delimiter"
+          } >> "$GITHUB_ENV"
+          bash ./stderr.sh 
+
+      - run: echo ${{ steps.message.outcome }}
+        if: always()
+
+      - name: Add error annotations
+        if: ${{ always() && steps.message.outcome == 'failure' }}
+        run: echo "::error title=ERROR MESSAGE::${{ env.errors }}"
